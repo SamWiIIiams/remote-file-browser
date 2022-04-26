@@ -3,7 +3,7 @@ import { Routes, Route, Link, useParams } from 'react-router-dom';
 import { getItems } from '../api';
 
 export default function Folder() {
-  const { dirName } = useParams();
+  const { dirName } = window.location.pathname;
   const {name, items} = getItems(dirName);
   return (
     <div>

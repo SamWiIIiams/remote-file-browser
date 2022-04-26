@@ -1,13 +1,14 @@
 import './App.css';
 import React, { useState, useRef, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Link, Route, Navigate, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Link, Route, Navigate, useParams, Outlet } from 'react-router-dom'
 import { getItems } from './api';
 //import Folder from './components/Folder';
 
+//const dirName = window.location.pathname;
 
 
-export function Folder() {
-  const { dirName } = useParams();
+export function Folder() {  
+  const dirName = window.location.pathname;
   const {name, items} = getItems(dirName);
   return (
     <div>
@@ -19,15 +20,17 @@ export function Folder() {
             </li>
           ))}
         </ul>
-        {/* <ul>
+        <ul>
           {items.filter((file) => file.type ==="file").map(({ size, name }) =>
             <li key={name}>
               {name}, {size}
             </li>
           )}
-        </ul> */}
+        </ul>
         <Routes>
-          <Route path={`:dirName/*`} element={<Folder />} />
+            {items.filter((dir) => dir.type ==="dir").map(({ name, type }) => (
+                <Route path={':name/*'} element = {<Folder />} />
+            ))}
         </Routes>
     </div>
   );
@@ -35,7 +38,7 @@ export function Folder() {
 
 
 function App() {
-    
+  const root = getItems("/");
 
   return (
     <Router>
@@ -44,8 +47,8 @@ function App() {
       </div>
       <hr/>
       <Routes>
-        <Route path="/" element={<Navigate to="/teleport" />} />
-        <Route path="/:dirName/*" element={<Folder />} />
+        <Route path="/" element={<Navigate to={root.name} />} />
+        <Route path=":dirName/*" element={<Folder />} />
       </Routes>
     </Router>
   );

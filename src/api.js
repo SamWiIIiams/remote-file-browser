@@ -1,4 +1,4 @@
-const directory = [{
+const directory = {
     name: "teleport",
     size: 0, // bytes
     type: "dir",
@@ -28,7 +28,7 @@ const directory = [{
                             size: 3423231,
                             type: "file"
                         }
-                    ]
+                    ],
                 },
             ],
         },
@@ -37,24 +37,38 @@ const directory = [{
             size: 4340000, // bytes
             type: "file",
         },
+        {
+            name: "bin",
+            size: 0, // bytes
+            type: "dir",
+            items: [
+                {
+                    name: "binFile.bin",
+                    size: 2, // bytes
+                    type: "file",
+                    
+                }
+            ],
+        },
     ],
-}];
+};
 
   export function getItems(newPath) {
+      if (newPath.endsWith('/')) {newPath = newPath.slice(0, -1)}
       console.log("new path = " + newPath);
-      if (newPath) {
-          let path = window.location.pathname.split('/');
-          path.shift();
-          path.pop();
-          path.push(newPath);
-          console.log(path)
-          let search = directory.find(item => item.name === path[0]);
-          for (let i = 1; i < path.length; i++) {
-              search = search.items.find(item => item.name === path[i]);
+     
+          let pathArray = newPath.split("/")
+          pathArray.shift();
+          console.log(pathArray)
+          let search = directory;
+          for (let i = 1; i < pathArray.length; i++) {
+              search = search.items.find(item => item.name === pathArray[i]);
           }
 
           return search;
-      } return directory.find(item => item.name === "teleport")
+      
+  }
+  export function getRoot() {
   }
 
   
