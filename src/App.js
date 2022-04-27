@@ -1,56 +1,60 @@
 import './App.css';
 import React, { useState, useRef, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Link, Route, Navigate, useParams, Outlet } from 'react-router-dom'
-import { getItems } from './api';
+import { Routes, Link, Route, Navigate, useLocation } from 'react-router-dom'
+import { getItems, getRoot } from './api';
 //import Folder from './components/Folder';
 
 //const dirName = window.location.pathname;
 
 
-export function Folder() {  
-  const dirName = window.location.pathname;
-  const {name, items} = getItems(dirName);
-  return (
-    <div>
-      <h1>{name}</h1>
-        <ul>
-          {items.filter((dir) => dir.type ==="dir").map(({ name, type }) => (
-            <li key={name}>
-              <Link to={name}>{name}, {type}</Link>
-            </li>
-          ))}
-        </ul>
-        <ul>
-          {items.filter((file) => file.type ==="file").map(({ size, name }) =>
-            <li key={name}>
-              {name}, {size}
-            </li>
-          )}
-        </ul>
-        <Routes>
-            {items.filter((dir) => dir.type ==="dir").map(({ name, type }) => (
-                <Route path={':name/*'} element = {<Folder />} />
-            ))}
-        </Routes>
-    </div>
-  );
+export function Folder() {
+    const { pathname } = useLocation();
+    const path = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+    const data = getItems(path);
+    
+    return (
+        <div>
+            <h1>{data.name}</h1>
+            <ul>
+                {data.items.map((item) => (
+                    <li key={item.name}>
+                        {item.type === "file" && (
+                            <>
+                                {item.name}, {item.size}
+                            </>
+                        )}
+                        {item.type === "dir" && (
+                            <>
+                                <Link to={path + "/" + item.name}>
+                                    {item.name}, {item.type}
+                                </Link>
+                                
+                            </>
+                        )}
+                    </li>
+                ))}
+            </ul>
+       
+
+        </div>
+    );
 };
 
 
 function App() {
-  const root = getItems("/");
+  const root = getRoot();
 
   return (
-    <Router>
+      <>
       <div>
         <h2>TeleBrowser</h2>
       </div>
       <hr/>
       <Routes>
-        <Route path="/" element={<Navigate to={root.name} />} />
-        <Route path=":dirName/*" element={<Folder />} />
+        <Route path="/" element={<Navigate to={root} />} />
+        <Route path="/:path/*" element={<Folder />} />
       </Routes>
-    </Router>
+      </>
   );
 }
 

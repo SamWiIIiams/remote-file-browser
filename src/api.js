@@ -43,13 +43,13 @@ const directory = {
             type: "dir",
             items: [
                 {
-                    name: "binFile.bin",
-                    size: 2, // bytes
+                    name: "binfile.md",
+                    size: 439798, // bytes
                     type: "file",
-                    
-                }
+                },
             ],
         },
+        
     ],
 };
 
@@ -62,13 +62,18 @@ const directory = {
           console.log(pathArray)
           let search = directory;
           for (let i = 1; i < pathArray.length; i++) {
-              search = search.items.find(item => item.name === pathArray[i]);
+              search = search.items.filter((dir) => dir.type === 'dir').find(item => item.name === pathArray[i]);
           }
 
           return search;
       
   }
   export function getRoot() {
+      return "/" + directory.name;
+  }
+
+  export function getData(url) {
+
   }
 
   
