@@ -24,7 +24,13 @@ The front end will define the user interface for the app and contain 4 custom co
 
 #### Dependencies
 
-#### Error handling
+- react-router v6: useful for implementing strict url navigation
+
+#### Error handling/test cases
+
+- When a user navigates to a URL that does not map to a directory location, they will be routed to a page that tells them this. There should be a link that takes them back to the root directory of the file tree.
+
+- 
 
 #### Trade-offs
 
