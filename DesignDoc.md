@@ -22,6 +22,12 @@ The front end will define the user interface for the app and contain 4 custom co
 - NotFound.js: Basic component that the user will be routed to if they enter a url path that doesn't exist in the file tree
 - login.js: User will be routed here if they are not authenticated. Once entering valid credentials, they will be routed back to the url they originally tried to access.
 
+#### Dependencies
+
+#### Error handling
+
+#### Trade-offs
+
 ### NodeJS backend API
 
 
