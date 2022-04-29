@@ -8,9 +8,9 @@ To allow a user to browse directory content on a remote server.
 
 The application will be comprised of 3 major components - all containerized with Docker for portability
 
--Frontend written with React
--nginx webserver
--backend API written with NodeJS
+- Frontend written with React
+- nginx webserver
+- backend API written with NodeJS
 
 ## Details
 
