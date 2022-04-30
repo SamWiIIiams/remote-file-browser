@@ -44,7 +44,7 @@ The backend API will receive requests for a directory location from the frontend
 
 #### Dependencies and libraries
 
-- jsonwebtoken: for creating and validating tokens issued to users after login *If I have time*
+- bcrypt: For hashing and comparing passwords
 
 #### Endpoints
 
