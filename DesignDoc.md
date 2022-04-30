@@ -12,6 +12,8 @@ The application will be comprised of 3 major components - all containerized with
 - Nginx webserver
 - Backend API written with NodeJS
 
+![Overview Wireframe](/public/images/TeleportOverviewWF.png)
+
 ## Details
 
 ### React frontend
@@ -53,7 +55,7 @@ The backend API will receive requests for a directory location from the frontend
 
 ### Nginx web server
 
-- fer survin it up
+fer survin it up
 
 ### Docker container
 
