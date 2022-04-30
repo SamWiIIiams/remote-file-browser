@@ -40,6 +40,10 @@ The front end will define the user interface for the app and contain 4 custom co
 
 The backend API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has been authenticated each time they make an API call for new information.
 
+#### Dependencies
+
+- jsonwebtoken: for creating and validating tokens issued to users after login
+
 #### Error handling/test cases
 
 - gracefully handle errors and return relevant messages to be communicated to the user by the frontend.
@@ -49,6 +53,7 @@ The backend API will receive requests for a directory location from the frontend
 
 ### Nginx web server
 
+- fer survin it up
 
 ### Docker container
 

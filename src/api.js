@@ -1,3 +1,29 @@
+const db = {
+  credentials: [
+    {
+      username: "SamWilliams",
+      password: "goTeleport123",
+    },
+    {
+      username: "zbm3",
+      password: "goTeleport123",
+    },
+    {
+      username: "hatched",
+      password: "goTeleport123",
+    },
+    {
+      username: "ibeckermayer",
+      password: "goTeleport123",
+    },
+    {
+      username: "pierrebeaucamp",
+      password: "goTeleport123",
+    },
+  ]
+};
+
+
 const directory = {
   name: "teleport",
   size: 0, // bytes
