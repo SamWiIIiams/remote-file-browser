@@ -32,26 +32,32 @@ The front end will define the user interface for the app and contain 4 custom co
 
 - When a user navigates to a URL that does not map to a directory location, they will be routed to a page that tells them this. There should be a link that takes them back to the root directory of the file tree.
 
-- Folder and file names that are very long should be truncated (in the display) before they disrupt the formatting of the page. The same goes for the search bar field
+- Folder and file names that are very long should be truncated (in the display) before they disrupt the formatting of the page. The same goes for the search bar field.
 
-- Should display relevant error messages to the user if there are any errors returned by any API calls
+- Should display relevant error messages to the user if there are any errors returned by any API calls.
 
 #### Trade-offs
 
 ### NodeJS backend API
 
-The backend API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has been authenticated each time they make an API call for new information.
+The backend API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has an active session open each time they make an API call for new information.
 
 #### Dependencies
 
-- jsonwebtoken: for creating and validating tokens issued to users after login
+- bcrypt: For hashing and comparing passwords
+
+- jsonwebtoken: for creating and validating tokens issued to users after login *If I have time*
+
 
 #### Error handling/test cases
 
-- gracefully handle errors and return relevant messages to be communicated to the user by the frontend.
+- gracefully catch any errors thrown for each API call and return relevant messages to be communicated to the user by the frontend.
 
 - User should be prevented from accessing any server directories outside the intended target directory.
 
+#### Trade-offs
+
+- If I do not have time, I will omit including authentication tokens.
 
 ### Nginx web server
 
