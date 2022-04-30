@@ -45,13 +45,14 @@ The backend API will receive requests for a directory location from the frontend
 #### Dependencies and libraries
 
 - bcrypt: For hashing and comparing passwords
+- ExpressJS: Library for making simple and lightweight RESTful API
 
 #### Endpoints
 
-- /login: receives the username and password in the body. finds the username, hashes the password, and compares it with the stored password
+- /login: POST request that receives the username and password in the body. finds the username, hashes the password, and compares it with the stored password
     - if the username does not exist, returns an error with an error response
     - if the password hashes do not match, returns an error response
-- /getDirectory: receives the path denoted in the url in the body and returns the directory information in its response
+- /getDirectory: GET request that receives the path denoted in the url in the body and returns the directory information in its response
     - if the user is not authenticated, returns an error response
     - if the directory does not exist, returns an error response
 
