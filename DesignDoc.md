@@ -24,7 +24,7 @@ The front end will define the user interface for the app and contain 4 custom co
 - NotFound.js: Basic component that the user will be routed to if they enter a url path that doesn't exist in the file tree
 - login.js: User will be routed here if they are not authenticated. Once entering valid credentials, they will be routed back to the url they originally tried to access.
 
-#### Dependencies
+#### Dependencies and libraries
 
 - react-router v6: useful for implementing strict url navigation
 
@@ -42,22 +42,18 @@ The front end will define the user interface for the app and contain 4 custom co
 
 The backend API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has an active session open each time they make an API call for new information.
 
-#### Dependencies
-
-- bcrypt: For hashing and comparing passwords
+#### Dependencies and libraries
 
 - jsonwebtoken: for creating and validating tokens issued to users after login *If I have time*
 
+#### Endpoints
 
-#### Error handling/test cases
-
-- gracefully catch any errors thrown for each API call and return relevant messages to be communicated to the user by the frontend.
-
-- User should be prevented from accessing any server directories outside the intended target directory.
-
-#### Trade-offs
-
-- If I do not have time, I will omit including authentication tokens.
+- /login: receives the username and password in the body. finds the username, hashes the password, and compares it with the stored password
+    - if the username does not exist, returns an error with an error response
+    - if the password hashes do not match, returns an error response
+- /getDirectory: receives the path denoted in the url in the body and returns the directory information in its response
+    - if the user is not authenticated, returns an error response
+    - if the directory does not exist, returns an error response
 
 ### Nginx web server
 
