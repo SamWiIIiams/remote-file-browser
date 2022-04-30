@@ -38,14 +38,14 @@ The front end will define the user interface for the app and contain 4 custom co
 
 #### Trade-offs
 
-### NodeJS backend API
+### NodeJS web server & API
 
-The backend API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has an active session open each time they make an API call for new information.
+The nodeJS backend will use ExpressJS to create a lightweight server for serving the static files from the React application. The API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has an active session open each time they make an API call for new information.
 
 #### Dependencies and libraries
 
 - bcrypt: For hashing and comparing passwords
-- ExpressJS: Library for making simple and lightweight RESTful API
+- ExpressJS: Framework for making simple and lightweight web service and RESTful API
 
 #### Endpoints
 
@@ -56,12 +56,10 @@ The backend API will receive requests for a directory location from the frontend
     - if the user is not authenticated, returns an error response
     - if the directory does not exist, returns an error response
 
-### Nginx web server
+### Nginx reverse proxy
 
-fer survin it up
+the nginx reverse proxy will act as the middleman between the client and the ExpressJS webserver. It will take requests made from the client and pass them on to the ExpressJS server.
 
 ### Docker container
 
 Instructions for building and running the container will be in the README.md file
-
-
