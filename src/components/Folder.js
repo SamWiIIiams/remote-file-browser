@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { getItems } from '../api';
 
 
-export default function Folder() {
+export function Folder() {
   const { pathname } = useLocation();
   const path = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
   const { name, items } = getItems(path);
@@ -12,7 +12,6 @@ export default function Folder() {
   const [sortType, setSortType] = useState({value: "name", order: true});
 
   useEffect(() => {
-    console.log("pathChanged");
     setData(items);
   },[path])
   
@@ -55,6 +54,8 @@ export default function Folder() {
 
     sortArray(sortType);
   }, [sortType]);
+
+  
 
   return (
     <>
