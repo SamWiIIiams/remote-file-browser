@@ -9,8 +9,8 @@ To allow a user to browse directory content on a remote server.
 The application will be comprised of 3 major components - all containerized with Docker for portability
 
 - Frontend written with React
-- Nginx webserver
-- Backend API written with NodeJS
+- Nginx reverse proxy
+- Backend API written with NodeJS and ExpressJS
 
 ![Overview Wireframe](/public/images/TeleportOverviewWF.png)
 
@@ -36,8 +36,6 @@ The front end will define the user interface for the app and contain 4 custom co
 
 - Should display relevant error messages to the user if there are any errors returned by any API calls.
 
-#### Trade-offs
-
 ### NodeJS web server & API
 
 The nodeJS backend will use ExpressJS to create a lightweight server for serving the static files from the React application. The API will receive requests for a directory location from the frontend and return the data in that directory. It will also provide authentication capabilities by verifying a user has an active session open each time they make an API call for new information.
@@ -46,14 +44,17 @@ The nodeJS backend will use ExpressJS to create a lightweight server for serving
 
 - bcrypt: For hashing and comparing passwords
 - ExpressJS: Framework for making simple and lightweight web service and RESTful API
+- express.static: middleware for serving static assets
 
 #### Endpoints
 
 - /login: POST request that receives the username and password in the body. finds the username, hashes the password, and compares it with the stored password
     - if the username does not exist, returns an error with an error response
     - if the password hashes do not match, returns an error response
+- /login: GET request that is used to check whether a user is logged in upon first navigating to or refreshing the app.
+    - If the request does not contain a valid session cookie, will return an error. Frontend will redirect to login page.
 - /getDirectory: GET request that receives the path denoted in the url in the body and returns the directory information in its response
-    - if the user is not authenticated, returns an error response
+    - if the request does not contain a valid cookie, returns an error response
     - if the directory does not exist, returns an error response
 
 ### Nginx reverse proxy
@@ -63,3 +64,8 @@ The Nginx reverse proxy will act as the middleman between the client and the Exp
 ### Docker container
 
 Instructions for building and running the container will be in the README.md file
+
+### Deployment plan
+
+The first few PRs will contain only the code relevant to the level 2 implementation. While this will ultimately create more work as I will have to adapt the app to get the directory data from an actual directory via the backend API, I believe it is useful to create a functioning POC that customers (interviewers) can see early in the development process.
+

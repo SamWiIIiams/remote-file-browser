@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { getItems } from '../api';
 
@@ -7,20 +7,30 @@ export default function Folder() {
   const { pathname } = useLocation();
   const path = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
   const data = getItems(path);
-  let sortOn = "name";
+  const [data2, sortData] = useState([]);
 
-  function sortBy(sort) {
-    sortOn = sort;
-  }
+  const sortEntries = property => {
+    const properties = {
+      name: 'name',
+      type: 'type',
+      size: 'size',
+    };
+    const sortProperty = properties[property];
+    const sorted = data.sort((a, b) => b[sortProperty] - a[sortProperty]);
+    console.log(sorted);
+    sortData(sorted);
+
+  } 
+
+    
 
   return (
     <>
       <h1>{data.name}</h1>
       <span>
-        <button onClick={sortBy('name')}>name</button>
-        <button onClick={sortBy('type')}>type</button>
-        <button onClick={sortBy('size')}>size</button>
-        sorting on {sortBy}
+        <button onClick={sortEntries('name')}>name</button>
+        <button onClick={sortEntries('type')}>type</button>
+        <button onClick={sortEntries('size')}>size</button>
       </span>
       <ul>
         {data.items.map((item) => (
