@@ -6,44 +6,76 @@ import { getItems } from '../api';
 export default function Folder() {
   const { pathname } = useLocation();
   const path = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-  const data = getItems(path);
-  const [data2, sortData] = useState([]);
+  const { name, items } = getItems(path);
+  const [data, setData] = useState([]);
+ 
+  const [sortType, setSortType] = useState({value: "name", order: true});
 
-  const sortEntries = property => {
-    const properties = {
-      name: 'name',
-      type: 'type',
-      size: 'size',
+  useEffect(() => {
+    console.log("pathChanged");
+    setData(items);
+  },[path])
+  
+  useEffect(() => {
+    const sortArray = ({ value, order }) => {
+      const types = {
+        name: "name",
+        type: "type",
+        size: "size"
+      };
+      const sortProperty = types[value];
+      let sorted;
+      if (sortProperty === 'size') {
+        if (order) {
+          sorted = [...items].sort((a, b) => b[sortProperty] - a[sortProperty]);
+        } else {
+          sorted = [...items].sort((a, b) => a[sortProperty] - b[sortProperty]);
+        }
+      } else {
+        if (order) {
+          sorted = [...items].sort((a, b) => {
+            const thingA = a[sortProperty].toUpperCase();
+            const thingB = b[sortProperty].toUpperCase();
+            if (thingA < thingB) { return -1;}
+            if (thingA > thingB) { return 1;}
+            return 0;
+          });
+        } else {
+          sorted = [...items].sort((a, b) => {
+            const thingA = a[sortProperty].toUpperCase();
+            const thingB = b[sortProperty].toUpperCase();
+            if (thingA < thingB) { return 1; }
+            if (thingA > thingB) { return -1; }
+            return 0;
+          });
+        }
+      }
+      setData(sorted);
     };
-    const sortProperty = properties[property];
-    const sorted = data.sort((a, b) => b[sortProperty] - a[sortProperty]);
-    console.log(sorted);
-    sortData(sorted);
 
-  } 
-
-    
+    sortArray(sortType);
+  }, [sortType]);
 
   return (
     <>
-      <h1>{data.name}</h1>
+      <h1>{name}</h1>
       <span>
-        <button onClick={sortEntries('name')}>name</button>
-        <button onClick={sortEntries('type')}>type</button>
-        <button onClick={sortEntries('size')}>size</button>
+        <button onClick={() =>setSortType({...sortType, value: "name", order: !sortType.order})}>name</button>
+        <button onClick={() =>setSortType({...sortType, value: "type", order: !sortType.order})}>type</button>
+        <button onClick={() =>setSortType({...sortType, value: "size", order: !sortType.order})}>size</button>
       </span>
       <ul>
-        {data.items.map((item) => (
-          <li key={item.name}>
-            {item.type === "file" && (
+        {data.map(file => (
+          <li key={file.name}>
+            {file.type === "file" && (
               <>
-                {item.name}, {item.size}
+                <span>{file.name}, {file.size}</span>
               </>
             )}
-            {item.type === "dir" && (
+            {file.type === "dir" && (
               <>
-                <Link to={path + "/" + item.name}>
-                  {item.name}, {item.type}
+                <Link to={path + "/" + file.name}>
+                  <span>{file.name}, {file.type}</span>
                 </Link>
               </>
             )}
