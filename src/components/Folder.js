@@ -1,30 +1,45 @@
 import React from 'react'
-import { Routes, Route, Link, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getItems } from '../api';
 
+
 export default function Folder() {
-  const { dirName } = window.location.pathname;
-  const {name, items} = getItems(dirName);
+  const { pathname } = useLocation();
+  const path = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  const data = getItems(path);
+  let sortOn = "name";
+
+  function sortBy(sort) {
+    sortOn = sort;
+  }
+
   return (
-    <div>
-      <h1>{name}</h1>
-        <ul>
-          {items.filter((dir) => dir.type ==="dir").map(({ name, type }) =>
-            <li key={name}>
-              <Link to={name}>{name}, {type}</Link>
-            </li>
-          )}
-        </ul>
-        <ul>
-          {items.filter((file) => file.type ==="file").map(({ size, name }) =>
-            <li key={name}>
-              {name}, {size}
-            </li>
-          )}
-        </ul>
-        <Routes>
-          <Route path={`:dirName/*`} element={<Folder />} />
-        </Routes>
-    </div>
-  )
+    <>
+      <h1>{data.name}</h1>
+      <span>
+        <button onClick={sortBy('name')}>name</button>
+        <button onClick={sortBy('type')}>type</button>
+        <button onClick={sortBy('size')}>size</button>
+        sorting on {sortBy}
+      </span>
+      <ul>
+        {data.items.map((item) => (
+          <li key={item.name}>
+            {item.type === "file" && (
+              <>
+                {item.name}, {item.size}
+              </>
+            )}
+            {item.type === "dir" && (
+              <>
+                <Link to={path + "/" + item.name}>
+                  {item.name}, {item.type}
+                </Link>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 }

@@ -58,7 +58,7 @@ The nodeJS backend will use ExpressJS to create a lightweight server for serving
 
 ### Nginx reverse proxy
 
-the nginx reverse proxy will act as the middleman between the client and the ExpressJS webserver. It will take requests made from the client and pass them on to the ExpressJS server.
+The Nginx reverse proxy will act as the middleman between the client and the ExpressJS webserver. It will take requests made from the client and pass them on to the ExpressJS server.
 
 ### Docker container
 
