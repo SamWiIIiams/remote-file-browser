@@ -70,6 +70,9 @@
 
 .item-name {
     width: 366px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .item-type {
