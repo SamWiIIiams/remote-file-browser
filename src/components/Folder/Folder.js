@@ -73,16 +73,16 @@ export default function Folder() {
 
   return (
     <>
-      <h1>{name}</h1>
+      <h1>/{name}</h1>
       <label htmlFor="searchBar">Search directory</label>
       <input type="text" id="searchBar" name="searchBar" onChange={(e) => setSearchValue(e.target.value.toLowerCase())}></input>
       <div className='Box mb-3'>
-        <div className='Box-header position-relative'>
-          <span>
-            <button onClick={() =>setSortType({...sortType, value: "name", order: !sortType.order})}>name</button>
-            <button onClick={() =>setSortType({...sortType, value: "type", order: !sortType.order})}>type</button>
-            <button onClick={() =>setSortType({...sortType, value: "size", order: !sortType.order})}>size</button>
-          </span>
+        <div className='Box-header'>
+          <div className="spacer"></div>
+          <div className="sort-name hover" onClick={() =>setSortType({...sortType, value: "name", order: !sortType.order})}>name</div>
+          <div className="small-name hover" onClick={() =>setSortType({...sortType, value: "name", order: !sortType.order})}>name</div>
+          <div className="sort-type hover" onClick={() =>setSortType({...sortType, value: "type", order: !sortType.order})}>type</div>
+          <div className="sort-size hover" onClick={() =>setSortType({...sortType, value: "size", order: !sortType.order})}>size</div>
         </div>
         <div >
           {data.map((file, idx) => (
@@ -90,20 +90,20 @@ export default function Folder() {
               {file.type === "file" && (
                 <>
                     <FontAwesomeIcon icon={faFile} className="file-icon" />
-                    <div className='flex-auto min-width-0 mr-3'>{file.name}</div>
-                    <div className='flex-auto min-width-0 mr-3 col-5 d-md-block'></div>
-                    <div className='text-right'>{file.size}</div>
+                    <div className='item-name'>{file.name}</div>
+                    <div className='item-type '>{file.type}</div>
+                    <div className='item-size'>{file.size}</div>
                   
                 </>
               )}
               {file.type === "dir" && (
                 <>
                   <FontAwesomeIcon icon={faFolder} className="folder-icon"/>
-                  <Link to={path + "/" + file.name}>
-                    <span>{file.name}</span>
+                  <Link className='item-name router-link' to={path + "/" + file.name}>
+                    {file.name}
                   </Link>
-                  <div className='flex-auto min-width-0 mr-3 col-5 d-md-block'></div>
-                  <div className='text-right'>{file.size}</div>
+                  <div className='item-type'>{file.type}</div>
+                  <div className='item-size'>{file.size}</div>
                 </>
               )}
             </div>

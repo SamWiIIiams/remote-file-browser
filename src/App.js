@@ -9,7 +9,7 @@ function App() {
   const root = getRoot();
 
   return (
-    <>
+    <div className="app-wrapper">
       <div>
         <h2>TeleBrowser</h2>
       </div>
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Navigate to={root} />} />
         <Route path="/:path/*" element={<Folder />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

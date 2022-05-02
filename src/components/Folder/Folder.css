@@ -11,9 +11,10 @@
 }
 
 .Box-header {
-    padding: 16px;
+    display: flex;
+    align-content: center;
     margin: -1px -1px 0;
-    background-color: #dbdbdb;
+    background-color: #f6f8fa;
     border-color: #bebfbe;
     border-style: solid;
     border-width: 1px;
@@ -21,13 +22,60 @@
     border-top-right-radius: 6px;
 }
 
+.spacer {
+    width: 70px;
+}
+.sort-name {
+    width: 50px;
+    height: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sort-type {
+    width: 50px;
+    padding: 0% 3% 0% 3%;
+    margin-left: 38%;
+    height: 30px;
+    text-align: center;
+}
+
+.small-name {
+    width: 50px;
+    height: 30px;
+}
+
+.sort-size {
+    padding: 0% 3% 0% 3%;
+    margin-left: auto;
+}
+
+.hover:hover {
+    background-color: #cae1f7;
+    cursor: pointer;
+}
+
 .Box-row {
     padding: 16px;
     margin-top: -1px;
-    background-color: #ffffff;
+    background-color: white;
     border-color: #bebfbe;
     border-top-style: solid;
     border-top-width: 1px;
+}
+
+.Box-row:hover {
+    background-color: #f6f8fa;
+}
+
+.item-name {
+    width: 366px;
+}
+
+.item-type {
+    width: 50px;
+    padding: 0% 3% 0% 3%;
+    text-align: center;
 }
 
 .mr-3 {
@@ -47,22 +95,20 @@
 .py-2 {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
+    color: #434343
 }
 
 .position-relative {
     position: relative !important;
-}
-
-.col-5 {
-    width: 41.66666665%;
-}
+}   
 
 .d-md-block {
     display: block !important;
+    min-width: 200px;
 }
 
-.text-right {
-    text-align: right !important;
+.item-size {
+    margin-left: auto;
 }
 .flex-shrink-0 {
     flex-shrink: 0 !important;
@@ -70,10 +116,34 @@
 
 .folder-icon {
     color:#37a0e1;
-    padding-right: 6px;
+    width: 50px;
 }
 
 .file-icon {
-    color:#7b7b7b;
-    padding-right: 6px;
+    color:#7b7b7b;    
+    width: 50px;
+}
+
+@media only screen and (max-width: 755px) {
+    div.item-type {
+        display: none;
+    }
+    div.item-size {
+        display: none;
+    }
+    div.sort-name {
+        display: none;
+    }
+    div.sort-type {
+        display: none;
+    }
+    div.sort-size {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 755px) {
+    div.small-name {
+        display: none;
+    }
 }

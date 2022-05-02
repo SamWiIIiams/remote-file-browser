@@ -52,7 +52,7 @@ const directory = {
           type: "dir",
           items: [
             {
-              name: "newThing",
+              name: "newThingsuperduperlongfilenameeeeeeeeeeeeeeeeee",
               size: 3423231,
               type: "file",
             },
