@@ -1,12 +1,38 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getRoot } from "./api";
-import { Folder } from "./components";
+import { Folder, Login } from "./components";
 
 
 function App() {
   const root = getRoot();
+  const [loginStatus, setLoginStatus] = useState();
+  const [pageLoad, setPageLoad] = useState(false);
+
+
+
+  useEffect(() => {
+    localStorage.setItem('redirected-from', window.location.pathname)
+    fetch("http://localhost:3001/login", {
+      method: 'GET',
+      'credentials': 'include',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    }).then(response => response.json())
+    .then(response => {
+      if (response.loggedIn) {
+        setLoginStatus(true);
+      }
+      console.log(response.error)
+      setPageLoad(true)
+    }).catch((error) => {
+      console.error('error: ' + error);
+      setPageLoad(true)
+    })
+  },[])
+
 
   return (
     <div className="app-wrapper">
@@ -14,10 +40,14 @@ function App() {
         <h2>TeleBrowser</h2>
       </div>
       <hr />
+      {(!loginStatus && pageLoad) ? 
+        <Login setLoginStatus={setLoginStatus}/>
+      : (loginStatus && pageLoad) ? 
       <Routes>
         <Route path="/" element={<Navigate to={root} />} />
         <Route path="/:path/*" element={<Folder />} />
       </Routes>
+      : <div>loading</div>}
     </div>
   );
 }
