@@ -1,0 +1,12 @@
+# Name the node stage "builder"
+FROM node:alpine as builder
+# Set working directory
+WORKDIR /client
+#Copy package.json
+COPY ./package.json /client
+#install npm dependencies
+RUN npm install
+# Copy all other files from current directory to working dir in image
+COPY . .
+# install node modules and build assets
+CMD [ "npm", "run", "start" ]

@@ -1,12 +1,11 @@
 const express = require('express');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
-const { createToken, validateToken } = require('./JWT');
+const { createToken, validateToken } = require('./jwt');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 5000
 
 const app = express();
 
@@ -23,15 +22,7 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 app.use(allowCrossDomain);
-app.use(session({
-  key: "userID",
-  secret: "placeholder",
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 60,
-  }
-}))
+
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -127,6 +118,8 @@ app.post('/login', (req, res) => {
             userId: user.id, 
             message: "logged in successfully!"
           })
+        } else {
+          res.status(401).send({loggedIn: false, message: "Login failed; invalid user ID or password"});
         }
         
       })
@@ -143,5 +136,5 @@ app.post('/login', (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log("server running. Listening on port: 3001");
+    console.log("server running. Listening on port: " + PORT);
 })

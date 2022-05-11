@@ -1,16 +1,22 @@
 # Name the node stage "builder"
-FROM node:16 AS builder
+FROM node:alpine as builder
 # Set working directory
-WORKDIR /app
-# Copy all files from current directory to working dir in image
+WORKDIR /client
+#Copy package.json
+COPY ./package.json /client
+#install npm dependencies
+RUN npm install
+# Copy all other files from current directory to working dir in image
 COPY . .
 # install node modules and build assets
-RUN yarn install && yarn build
+CMD [ "npm", "run", "build" ]
 
 # nginx state for serving content
 FROM nginx:alpine
+
+EXPOSE 3000
 # Copy .conf file from here to use for nginx server
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY /nginx/defualt.conf /etc/nginx/conf.d/default.conf
 # Set working directory to nginx asset directory
 WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets

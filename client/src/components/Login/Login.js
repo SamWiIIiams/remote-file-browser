@@ -8,7 +8,7 @@ function Login({ setLoginStatus }) {
   
   const login = () => {
     if (pword && uname) {
-      fetch("http://localhost:3001/login", {
+      fetch("http://localhost:5000/login", {
         method: 'POST',
         'credentials': 'include',
         headers: {

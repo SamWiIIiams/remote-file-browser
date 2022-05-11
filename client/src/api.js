@@ -95,8 +95,14 @@ export function getItems(newPath) {
       .filter((dir) => dir.type === "dir")
       .find((item) => item.name === pathArray[i]);
   }
-
-  return search;
+  if (search) {
+    return search;
+  } else {
+    return ({
+      name: "",
+      items: [],
+    })
+  }
 }
 export function getRoot() {
   return "/" + directory.name;

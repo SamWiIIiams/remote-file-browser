@@ -13,8 +13,7 @@ function App() {
 
 
   useEffect(() => {
-    localStorage.setItem('redirected-from', window.location.pathname)
-    fetch("http://localhost:3001/login", {
+    fetch("http://localhost:5000/login", {
       method: 'GET',
       'credentials': 'include',
       headers: {
