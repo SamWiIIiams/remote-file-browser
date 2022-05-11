@@ -1,52 +1,45 @@
-import "./App.css";
+import './App.css';
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { getRoot } from "./api";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { Folder, Login } from "./components";
 
 
 function App() {
-  const root = getRoot();
-  const [loginStatus, setLoginStatus] = useState();
+  const [loginStatus, setLoginStatus] = useState(false);
   const [pageLoad, setPageLoad] = useState(false);
 
-
-
-  useEffect(() => {
-    fetch("http://localhost:5000/login", {
-      method: 'GET',
+  const logout = () => {
+    fetch("http://localhost:8080/logout", {
+      method: 'DELETE',
       'credentials': 'include',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8',
+        'Content-Type': 'application/json'
       },
-    }).then(response => response.json())
-    .then(response => {
-      if (response.loggedIn) {
-        setLoginStatus(true);
+    }).then(response => {
+      if (response.status === 200) {
+        setLoginStatus(false);
       }
-      console.log(response.error)
-      setPageLoad(true)
-    }).catch((error) => {
-      console.error('error: ' + error);
-      setPageLoad(true)
     })
-  },[])
-
+  }
 
   return (
     <div className="app-wrapper">
-      <div>
+      <div className='box-app-header'>
         <h2>TeleBrowser</h2>
+        {loginStatus && 
+        <button className="logout-button" onClick={() => logout()}>Logout</button>
+        }
       </div>
       <hr />
       {(!loginStatus && pageLoad) ? 
-        <Login setLoginStatus={setLoginStatus}/>
-      : (loginStatus && pageLoad) ? 
+        <Login setPageLoad={setPageLoad} setLoginStatus={setLoginStatus}/>
+      : 
       <Routes>
-        <Route path="/" element={<Navigate to={root} />} />
-        <Route path="/:path/*" element={<Folder />} />
+        <Route path="/" element={<Navigate to="directories" />} />
+        <Route path="/directories/*" element={<Folder pageLoad={pageLoad} setPageLoad={setPageLoad} setLoginStatus={setLoginStatus}/>} />
+        <Route path="/directories/:path/*" element={<Folder pageLoad={pageLoad} setPageLoad={setPageLoad} setLoginStatus={setLoginStatus}/>} />
       </Routes>
-      : <div>loading</div>}
+      }
     </div>
   );
 }

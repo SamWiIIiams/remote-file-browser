@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react'
+import './login.css'
 
-function Login({ setLoginStatus }) {
-
+function Login({ setPageLoad, setLoginStatus }) {
   const [uname, setUsername] = useState();
   const [pword, setPassword] = useState();
   const [message, setMessage] = useState("");
   
   const login = () => {
     if (pword && uname) {
-      fetch("http://localhost:5000/login", {
+      fetch("http://localhost:8080/login", {
         method: 'POST',
         'credentials': 'include',
         headers: {
@@ -23,6 +23,7 @@ function Login({ setLoginStatus }) {
         if (response.loggedIn) {
           console.log(response.message);
           setLoginStatus(true)
+          setPageLoad(false)
         } else {
           console.log(response.message);
           setMessage(response.message);
@@ -39,10 +40,16 @@ function Login({ setLoginStatus }) {
   return (
     <>
       <div className='login'>
-        <h1>Please Login</h1>
-        <input type="text" placeholder="Username..." onChange={(e) => setUsername(e.target.value)}/>
-        <input type="text" placeholder="password..." onChange={(e) => setPassword(e.target.value)}/>
-        <button onClick={() => login()}>Login</button>
+        <div className="login-input">
+          <h1>Please Login</h1>
+        </div>
+        <div className="login-input">
+          <input type="text" placeholder="Username..." onChange={(e) => setUsername(e.target.value)}/>
+        </div>
+        <div className="login-input">
+          <input type="password" placeholder="password..." onChange={(e) => setPassword(e.target.value)}/>
+        </div>
+        <button className="login-button" onClick={() => login()}>Login</button>
         <div>{message}</div>
       </div>
     </>
