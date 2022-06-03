@@ -1,7 +1,7 @@
 const fs = require('fs');
 const joinPath = require('path');
 
-const root = './teleport';
+const root = './root';
 
 
 const validatePath = (user_input) => {

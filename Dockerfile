@@ -18,7 +18,7 @@ WORKDIR /usr/app/server
 #Copy static react build to server directory
 COPY --from=client /usr/app/client/build/ ./build
 #cCopy necessary server files
-COPY ./server/teleport ./teleport
+COPY ./server/root ./root
 COPY ./server/package.json ./
 #Install npm dependencies
 RUN npm install

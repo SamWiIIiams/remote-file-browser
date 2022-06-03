@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="app-wrapper">
       <div className='box-app-header'>
-        <h2>TeleBrowser</h2>
+        <h2>Remote File Browser</h2>
         {loginStatus && 
         <button className="logout-button" onClick={() => logout()}>Logout</button>
         }

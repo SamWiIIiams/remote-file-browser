@@ -5,7 +5,7 @@ const { disconnect } = require('process');
 const request = supertest(server);
 
 test('basic test of getting file details', () => {
-    const path = 'teleport/'
+    const path = 'root/'
     const file = 'aaa.txt'
     
     helper.getDetails(path, file, 0).then(data => {
@@ -22,13 +22,13 @@ test('basic test of getting file details', () => {
 test('path validation test 1', () => {
     const path = '/slash/first/and/last/';
     const safePath = helper.validatePath(path);
-    expect(safePath).toStrictEqual('teleport/slash/first/and/last/');
+    expect(safePath).toStrictEqual('root/slash/first/and/last/');
 })
 
 test('path validation test 2', () => {
     const path = 'no/slash/first/and/last';
     const safePath = helper.validatePath(path);
-    expect(safePath).toStrictEqual('teleport/no/slash/first/and/last');
+    expect(safePath).toStrictEqual('root/no/slash/first/and/last');
 })
 
 test('directory traversal', () => {
