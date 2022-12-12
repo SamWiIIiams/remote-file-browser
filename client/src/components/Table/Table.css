@@ -36,14 +36,14 @@
     width: 50px;
     height: 30px;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 15px;
     text-align: right;
     user-select: none;
     -moz-user-select: none;
 }
 
 .sort-type {
-    width: 50px;
+    width: 55px;
     padding: 0% 3% 0% 3%;
     margin-left: 38%;
     height: 30px;
